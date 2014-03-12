@@ -2,13 +2,15 @@ class Words
 
   word = /\w+/g
 
+  parse = (string) -> string.toLowerCase().match(word)
+
   constructor: (string) ->
-    @count = string
-      .toLowerCase()
-      .match(word)
-      .reduce (dict, word) ->
-        dict[word] = 1 + (dict[word] or 0)
-        dict
-      , {}
+    words = parse string
+    @count = words.reduce (freq, word) ->
+      freq[word] ?= 0
+      freq[word] += 1
+      freq
+    , {}
+
 
 module.exports = Words
